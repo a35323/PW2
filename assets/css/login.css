@@ -1,0 +1,104 @@
+:root {
+    --font-main: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --bg: #0b1220;
+    --bg-2: #0f172a;
+    --surface: rgba(17, 24, 39, 0.9);
+    --border: #1f2a3d;
+    --text: #e5e7eb;
+    --muted: #ffffff;
+    --accent: #38bdf8;
+    --accent-2: #f97316;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+body,
+button,
+input,
+select,
+textarea,
+.btn,
+.form-control,
+.form-select,
+.table {
+    font-family: var(--font-main) !important;
+}
+
+body {
+    font-family: var(--font-main);
+    background: radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08), transparent 25%),
+                radial-gradient(circle at 80% 10%, rgba(249, 115, 22, 0.08), transparent 26%),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.card-login {
+    background: linear-gradient(145deg, var(--surface), rgba(12, 20, 34, 0.95));
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    color: var(--text);
+    border-radius: 18px;
+}
+
+.brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: var(--text);
+}
+
+.brand-mark::after {
+    content: '';
+    width: 46px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius: 999px;
+}
+
+.form-control, .form-control:focus {
+    background: #0c1423;
+    border: 1px solid var(--border);
+    color: #cbd5e1;
+    box-shadow: none;
+}
+
+.form-select, .form-select:focus {
+    background-color: #0c1423;
+    border: 1px solid var(--border);
+    color: #cbd5e1;
+    box-shadow: none;
+}
+
+.form-control::placeholder { color: var(--muted); }
+
+.btn-primary {
+    background: linear-gradient(120deg, var(--accent), #7dd3fc);
+    border: none;
+    color: #0b1220;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35);
+}
+
+.alert {
+    --bs-alert-bg: transparent;
+}
+
+.small-text { color: var(--muted); }
+
+.toggle-password {
+    cursor: pointer;
+    color: #cbd5e1;
+    background: #0c1423;
+    border: 1px solid var(--border);
+}
+
+.toggle-password:hover {
+    color: var(--accent);
+    background: #0f1a2d;
+}
