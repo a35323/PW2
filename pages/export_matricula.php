@@ -19,6 +19,7 @@ if (in_array($user['perfil'], [ROLE_STAFF, ROLE_MANAGER], true)) {
 }
 
 $params = [];
+// Build one query that supports request_id or aluno_id export inputs.
 $sql =
     'SELECT er.*, c.nome AS course_name, s.nome AS student_name, s.email AS student_email, u.nome AS decided_by_name, sp.caminho_foto AS student_photo
      FROM pedidos_matricula er
@@ -44,6 +45,7 @@ if ($requestId > 0) {
 }
 
 if ($user['perfil'] === ROLE_STUDENT) {
+    // Students are always restricted to their own enrollment request.
     $sql .= ' AND er.utilizador_id = ?';
     $params[] = $user['id'];
 } elseif (!in_array($user['perfil'], [ROLE_STAFF, ROLE_MANAGER], true)) {
@@ -92,6 +94,7 @@ if (!$request) {
 <body>
     <div class="doc">
     <div class="actions">
+        <!-- Browser print dialog is used to generate the final PDF. -->
         <button class="btn" onclick="window.print()">Imprimir / Guardar PDF</button>
         <a class="btn" href="<?php echo e($backUrl); ?>">Voltar</a>
     </div>

@@ -20,6 +20,7 @@ if (!$profile) {
 $courses = $pdo->query('SELECT * FROM cursos WHERE ativo = 1 ORDER BY nome')->fetchAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Draft/update/submit flow is controlled by profile status transitions.
     $name = trim($_POST['name'] ?? ($user['nome'] ?? ''));
     $phone = trim($_POST['phone'] ?? '');
     $address = trim($_POST['address'] ?? '');
@@ -70,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $newStatus = $status;
     if ($action === 'submit') {
+        // Business rule: only students with approved enrollment can submit profile.
         $stmt = $pdo->prepare('SELECT estado FROM pedidos_matricula WHERE utilizador_id = ? AND estado = "aprovado" LIMIT 1');
         $stmt->execute([$user['id']]);
         if (!$stmt->fetch()) {

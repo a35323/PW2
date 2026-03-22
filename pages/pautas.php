@@ -8,6 +8,7 @@ $courses = $pdo->query('SELECT * FROM cursos WHERE ativo = 1 ORDER BY nome')->fe
 $coursesById = [];
 $planByCourse = [];
 foreach ($courses as $c) {
+    // Preload per-course UC plan to validate sheet creation server-side.
     $coursesById[$c['id']] = $c;
     $stmt = $pdo->prepare('SELECT u.id, u.codigo, u.nome FROM plano_curso cp JOIN unidades_curriculares u ON cp.uc_id = u.id WHERE cp.curso_id = ? ORDER BY cp.ano, cp.semestre');
     $stmt->execute([$c['id']]);
@@ -15,6 +16,7 @@ foreach ($courses as $c) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'create_sheet') {
+    // Create a grading sheet only for UCs that belong to selected course plan.
     $course_id = (int)($_POST['course_id'] ?? 0);
     $uc_id = (int)($_POST['uc_id'] ?? 0);
     $academic_year = trim($_POST['academic_year'] ?? '');
@@ -49,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'creat
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_grades') {
+    // Validate each grade (0-20) before persisting updates.
     $sheetId = (int)($_POST['sheet_id'] ?? 0);
     $grades = $_POST['grade'] ?? [];
     $stmt = $pdo->prepare('UPDATE pauta_registos SET nota = ?, atualizado_em = NOW() WHERE id = ?');

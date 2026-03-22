@@ -6,6 +6,7 @@ $user = current_user();
 $courses = $pdo->query('SELECT * FROM cursos WHERE ativo = 1 ORDER BY nome')->fetchAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Students can open a new request only when no pending request exists.
     $course_id = (int)($_POST['course_id'] ?? 0);
     if (!$course_id) {
         flash('error', 'Selecione um curso.');

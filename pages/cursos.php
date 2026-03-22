@@ -18,6 +18,7 @@ if ($editId) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Single endpoint for create/update/delete course actions.
     $action = $_POST['action'] ?? 'save';
     $name = trim($_POST['name'] ?? '');
     $active = isset($_POST['active']) ? 1 : 0;

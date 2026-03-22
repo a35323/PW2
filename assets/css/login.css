@@ -1,4 +1,5 @@
 :root {
+    /* Tokens dedicated to the public login/register screen. */
     --font-main: 'Space Grotesk', system-ui, -apple-system, sans-serif;
     --bg: #0b1220;
     --bg-2: #0f172a;
@@ -37,6 +38,7 @@ body {
 }
 
 .card-login {
+    /* Main auth container used for both login and access request forms. */
     background: linear-gradient(145deg, var(--surface), rgba(12, 20, 34, 0.95));
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
@@ -92,6 +94,7 @@ body {
 .small-text { color: var(--muted); }
 
 .toggle-password {
+    /* Visual affordance for the JS password visibility toggle. */
     cursor: pointer;
     color: #cbd5e1;
     background: #0c1423;

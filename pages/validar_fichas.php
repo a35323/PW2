@@ -5,6 +5,7 @@ $pdo = get_pdo();
 $user = current_user();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Manager validates submitted student profiles and records observations.
     $id = (int)($_POST['profile_id'] ?? 0);
     $action = $_POST['action'] ?? '';
     $obs = trim($_POST['observations'] ?? '');

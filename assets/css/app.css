@@ -1,4 +1,5 @@
 :root {
+    /* Global design tokens used across authenticated pages. */
     --font-main: 'Space Grotesk', system-ui, -apple-system, sans-serif;
     --bg: #0b1220;
     --bg-2: #0f172a;
@@ -43,6 +44,7 @@ a { color: var(--accent); }
 a:hover { color: #67e8f9; }
 
 .navbar {
+    /* Shared top navigation style for all protected views. */
     background: linear-gradient(120deg, #0b1220, #0f1628 40%, #0b1220);
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow);
@@ -77,6 +79,7 @@ a:hover { color: #67e8f9; }
 .card-title { color: var(--text); letter-spacing: 0.3px; }
 
 .table {
+    /* Unified table theme used by CRUD lists and reports. */
     --bs-table-color: var(--text);
     --bs-table-bg: var(--bg-2);
     --bs-table-border-color: var(--border);

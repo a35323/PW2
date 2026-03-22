@@ -18,6 +18,7 @@ $logoPath = __DIR__ . '/../uploads/photos/ipca.pt.png';
 $logoUrl = file_exists($logoPath) ? 'uploads/photos/ipca.pt.png' : null;
 
 if ($sheetId > 0) {
+    // Staff/manager can export full sheet by sheet identifier.
     if (!in_array($user['perfil'], [ROLE_STAFF, ROLE_MANAGER], true)) {
         http_response_code(403);
         echo 'Acesso negado.';
@@ -59,6 +60,7 @@ if ($sheetId > 0) {
         'Época' => $sheet['epoca'],
     ];
 } else {
+    // Student export defaults to own records unless elevated role targets aluno_id.
     $studentId = $targetStudentId > 0 ? $targetStudentId : (int)$user['id'];
 
     if ($user['perfil'] === ROLE_STUDENT && $studentId !== (int)$user['id']) {
@@ -136,6 +138,7 @@ if ($sheetId > 0) {
 <body>
     <div class="doc">
     <div class="actions">
+        <!-- Browser print dialog is used to generate the final PDF. -->
         <button class="btn" onclick="window.print()">Imprimir / Guardar PDF</button>
         <a class="btn" href="<?php echo e($backUrl); ?>">Voltar</a>
     </div>

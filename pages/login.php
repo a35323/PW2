@@ -30,6 +30,7 @@
                         <?php echo e($msg); ?>
                     </div>
                 <?php endif; ?>
+                <?php // Login flow handled in index.php when action=login. ?>
                 <form method="post" action="index.php?page=login" class="d-grid gap-3">
                     <input type="hidden" name="action" value="login">
                     <div>
@@ -47,6 +48,7 @@
                 </form>
                 <hr class="border-secondary opacity-25 my-4">
                 <h6 class="text-center mb-3">Pedir novo acesso</h6>
+                <?php // Registration submits a pending request for manager approval. ?>
                 <form method="post" action="index.php?page=login" class="d-grid gap-3">
                     <input type="hidden" name="action" value="register">
                     <div>
@@ -76,6 +78,7 @@
     </div>
 </div>
 <script>
+    // Small UX helper: show/hide password in the login form only.
     const toggle = document.getElementById('togglePass');
     const pass = document.getElementById('password');
     toggle?.addEventListener('click', () => {

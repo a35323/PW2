@@ -5,6 +5,7 @@ $pdo = get_pdo();
 $user = current_user();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Staff decision updates request state and audit fields.
     $id = (int)($_POST['request_id'] ?? 0);
     $action = $_POST['action'] ?? '';
     $obs = trim($_POST['observations'] ?? '');

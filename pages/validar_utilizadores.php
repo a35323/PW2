@@ -6,6 +6,7 @@ $pdo = get_pdo();
 $user = current_user();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Manager approval creates account and closes the request atomically.
     $id = (int)($_POST['request_id'] ?? 0);
     $action = $_POST['action'] ?? '';
     $obs = trim($_POST['observations'] ?? '');
@@ -21,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flash('error', 'Pedido nao encontrado.');
         } else {
             try {
+                // Transaction keeps user creation and request decision consistent.
                 $pdo->beginTransaction();
 
                 $insert = $pdo->prepare('INSERT INTO utilizadores (nome, email, hash_senha, perfil) VALUES (?, ?, ?, ?)');

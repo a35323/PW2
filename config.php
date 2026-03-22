@@ -14,6 +14,7 @@ const PHOTO_ALLOWED_TYPES = ['image/jpeg', 'image/png'];
 
 // Start session and output buffer early
 if (session_status() === PHP_SESSION_NONE) {
+    // Single session bootstrap for the whole app lifecycle.
     session_start();
 }
 if (!ob_get_level()) {
@@ -22,6 +23,7 @@ if (!ob_get_level()) {
 
 // Session timeout handling
 if (isset($_SESSION['last_seen']) && (time() - $_SESSION['last_seen']) > SESSION_TIMEOUT_MINUTES * 60) {
+    // Expire inactive sessions to reduce risk from abandoned logins.
     session_unset();
     session_destroy();
     session_start();

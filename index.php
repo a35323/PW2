@@ -5,6 +5,7 @@ require_once __DIR__ . '/includes/helpers.php';
 
 function default_page_for_user(?array $user): string
 {
+    // Define the landing page according to the authenticated profile.
     if (!$user) {
         return 'login';
     }
@@ -26,6 +27,7 @@ function default_page_for_user(?array $user): string
 
 $page = $_GET['page'] ?? '';
 
+// Resolve the default dashboard when no page is provided.
 if ($page === '' || $page === 'painel') {
     $page = default_page_for_user(current_user());
 }
@@ -42,6 +44,7 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? 'login';
 
     if ($action === 'register') {
+        // Registration creates a pending request; only manager can approve later.
         require_once __DIR__ . '/includes/db.php';
         $name = trim($_POST['name'] ?? '');
         $email = trim($_POST['email'] ?? '');
@@ -58,6 +61,7 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             flash('error', 'Cargo inválido.');
         } else {
             $pdo = get_pdo();
+            // Prevent duplicate accounts and duplicated pending requests by email.
             $stmt = $pdo->prepare('SELECT id FROM utilizadores WHERE email = ? LIMIT 1');
             $stmt->execute([$email]);
             $existingUser = $stmt->fetch();
@@ -84,6 +88,7 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
+    // Successful login starts a session and redirects to profile default page.
     if (login($email, $password)) {
         flash('success', 'Sessão iniciada.');
         header('Location: index.php');
@@ -101,6 +106,7 @@ if ($page === 'login') {
 // All other pages require login
 require_login();
 
+// Export pages are rendered standalone (without shared header/footer layout).
 if (in_array($page, ['export_notas', 'export_matricula'], true)) {
     if ($page === 'export_notas') {
         include __DIR__ . '/pages/export_notas.php';
@@ -112,6 +118,7 @@ if (in_array($page, ['export_notas', 'export_matricula'], true)) {
 
 include __DIR__ . '/includes/header.php';
 
+// Central router for authenticated application pages.
 switch ($page) {
     case 'cursos':
         include __DIR__ . '/pages/cursos.php';

@@ -19,6 +19,7 @@ function find_user_by_id(int $id): ?array
 
 function login(string $email, string $password): bool
 {
+    // Authenticate against stored hash and persist user identity in session.
     $user = find_user_by_email($email);
     if (!$user || !password_verify($password, $user['hash_senha'])) {
         return false;
@@ -56,6 +57,7 @@ function require_role(array $roles): void
 {
     require_login();
     $user = current_user();
+    // Guard server-side authorization for protected pages/actions.
     if (!$user || !in_array($user['perfil'], $roles, true)) {
         http_response_code(403);
         echo '<div class="alert alert-danger">Acesso negado.</div>';

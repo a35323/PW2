@@ -17,6 +17,7 @@ if ($editId) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Single endpoint for create/update/delete UC actions.
     $action = $_POST['action'] ?? 'save';
     $code = trim($_POST['code'] ?? '');
     $name = trim($_POST['name'] ?? '');

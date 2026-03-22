@@ -5,6 +5,7 @@ $user = current_user();
 $cards = [];
 
 if ($user['perfil'] === ROLE_MANAGER) {
+    // Manager dashboard shortcuts.
     $cards[] = [
         'title' => 'Gestão Pedagógica',
         'text' => 'Gerir cursos, UCs e planos de estudo.',
@@ -33,6 +34,7 @@ if ($user['perfil'] === ROLE_MANAGER) {
 }
 
 if ($user['perfil'] === ROLE_STUDENT) {
+    // Student dashboard shortcuts.
     $cards[] = [
         'title' => 'Ficha de Aluno',
         'text' => 'Preencher dados e submeter para validacao.',
@@ -59,6 +61,7 @@ if ($user['perfil'] === ROLE_STUDENT) {
 }
 
 if ($user['perfil'] === ROLE_STAFF) {
+    // Staff dashboard shortcuts.
     $cards[] = [
         'title' => 'Pedidos de Matricula',
         'text' => 'Validar ou rejeitar pedidos pendentes.',

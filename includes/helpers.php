@@ -8,6 +8,7 @@ function e(?string $value): string
 
 function flash(string $key, ?string $message = null): ?string
 {
+    // Store once/read once messages across redirects.
     if ($message !== null) {
         $_SESSION['flash'][$key] = $message;
         return null;
@@ -22,6 +23,7 @@ function flash(string $key, ?string $message = null): ?string
 
 function handle_photo_upload(array $file): ?string
 {
+    // Validate upload constraints before moving file into public uploads folder.
     if ($file['error'] === UPLOAD_ERR_NO_FILE) {
         return null;
     }

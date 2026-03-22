@@ -5,6 +5,7 @@ function get_pdo(): PDO
 {
     static $pdo = null;
     if ($pdo === null) {
+        // Reuse one PDO instance per request and enforce exception-based errors.
         $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

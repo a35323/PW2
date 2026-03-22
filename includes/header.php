@@ -24,6 +24,7 @@ $user = current_user();
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <?php // Navigation entries are filtered by authenticated role. ?>
             <ul class="navbar-nav me-auto">
                 <?php if ($user): ?>
                     <?php if ($user['perfil'] === ROLE_MANAGER): ?>
@@ -56,6 +57,7 @@ $user = current_user();
     </div>
 </nav>
 <div class="container">
+<?php // Flash messages from server-side actions (CRUD/validation/login). ?>
 <?php if ($msg = flash('success')): ?>
     <div class="alert alert-success shadow-sm auto-dismiss"><?php echo e($msg); ?></div>
 <?php endif; ?>

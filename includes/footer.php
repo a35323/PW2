@@ -12,6 +12,7 @@
 
 	// Marcar item ativo da barra de navegação
 	(() => {
+		// Resolve current page from querystring and style the matching link.
 		const page = new URLSearchParams(window.location.search).get('page') || 'painel';
 		document.querySelectorAll('.navbar .nav-link').forEach((link) => {
 			const href = link.getAttribute('href') || '';

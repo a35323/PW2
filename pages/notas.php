@@ -17,6 +17,7 @@ $stmt = $pdo->prepare(
 $stmt->execute([$user['id']]);
 $grades = $stmt->fetchAll();
 
+// Aggregate published grades to present summary metrics.
 $publishedCount = 0;
 $sumGrades = 0.0;
 foreach ($grades as $gradeRow) {

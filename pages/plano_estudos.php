@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/db.php';
 $pdo = get_pdo();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Create course-UC association in the curriculum plan.
     $course_id = (int)($_POST['course_id'] ?? 0);
     $uc_id = (int)($_POST['uc_id'] ?? 0);
     $year = (int)($_POST['year'] ?? 1);
@@ -28,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (isset($_GET['delete'])) {
+    // Remove one plan association by identifier.
     $id = (int)$_GET['delete'];
     $stmt = $pdo->prepare('DELETE FROM plano_curso WHERE id = ?');
     $stmt->execute([$id]);
